@@ -11,7 +11,6 @@
         </foreach>
     </insert>
 
-
     <select id="getSetmealIdByDishIds" resultType="java.lang.Long">
         select setmeal_id from setmeal_dish
         where dish_id in 
@@ -19,4 +18,12 @@
             #{dishId}
         </foreach>
     </select>
+
+    <delete id="deleteByIds">
+        delete from setmeal_dish where setmeal_id in
+        <foreach collection="ids" item="setmealId" open="(" close=")" separator=",">
+            #{setmealId}
+        </foreach>
+    </delete>
+
 </mapper>
