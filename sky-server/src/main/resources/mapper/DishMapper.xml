@@ -24,4 +24,38 @@
         </where>
         order by create_time desc
     </select>
+
+    <delete id="deleteByIds">
+        delete from dish where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update dish
+        <set>
+            <if test="name!=null">name = #{name},</if>
+            <if test="name!=null">category_id = #{categoryId},</if>
+            <if test="name!=null">price = #{price},</if>
+            <if test="name!=null">image = #{image},</if>
+            <if test="name!=null">description = #{description},</if>
+            <if test="name!=null">status = #{status},</if>
+            <if test="name!=null">update_time = #{updateTime},</if>
+            <if test="name!=null">update_user = #{updateUser},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="getByCategoryId" resultType="Dish" parameterType="Dish">
+        select * from dish
+        <where>
+            <if test="name!=null">name=#{name}</if>
+            <if test="categoryId!=null">and category_id=#{categoryId}</if>
+            <if test="status!=null">and status=#{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+
 </mapper>
